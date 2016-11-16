@@ -19,10 +19,6 @@ $course = $DB->get_record('course', $params, '*', MUST_EXIST);
 require_login($course);
 $context = context_course::instance($course->id);
 
-$groupmode = groups_get_course_groupmode($course);
-$currentgroup = groups_get_course_group($course, true);
-$gradable = get_enrolled_users($context, 'moodle/competency:coursecompetencygradable', $currentgroup/*, 'u.id'*/);
-
 $url = new moodle_url('/report/coursecompetencies/index.php', $params);
 
 $title = get_string('pluginname', 'report_coursecompetencies');
@@ -36,6 +32,10 @@ $PAGE->set_pagelayout('incourse');
 $output = $PAGE->get_renderer('report_coursecompetencies');
 
 echo $output->header();
+echo $output->heading($title, 3);
+
+$page = new report_coursecompetencies_report($course);
+echo $output->render_report($page);
 
 /*
 $consulta = $DB->get_records_sql('
