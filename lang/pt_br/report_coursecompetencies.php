@@ -6,4 +6,4 @@
  * @copyright  2016 Instituto Infnet
  */
 
-$string['pluginname'] = 'Competências do curso por estudante';
+$string['pluginname'] = 'Competências da disciplina por estudante';
