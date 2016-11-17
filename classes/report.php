@@ -40,26 +40,55 @@ class report_coursecompetencies_report implements renderable, templatable {
 	public function export_for_template(renderer_base $output) {
 		global $DB;
 
+		$data = new stdClass();
+		$scale = null;
+		$framework = null;
+
 		$course = $this->course;
 		$coursecontext = $this->context;
 		$exporter = new tool_lp\external\course_summary_exporter($course, array('context' => $coursecontext));
-
-		$data = new stdClass();
 		$data->course = $exporter->export($output);
 
-		$competencies = core_competency\course_competency::list_competencies($course->id);
+		$data->competencies = array();
+		$this->competencies = core_competency\course_competency::list_competencies($course->id);
+		foreach ($this->competencies as $key => $competency) {
+			if (!isset($framework)) {
+				$framework = $competency->get_framework();
+			}
+			if (!isset($scale)) {
+				$scale = $competency->get_scale();
+			}
 
-		print_object($competencies);
-
-		$currentgroup = groups_get_course_group($course, true);
-		$users = get_enrolled_users($coursecontext, 'moodle/competency:coursecompetencygradable', $currentgroup);
-		foreach ($users as $user) {
-			$exporter = new core_competency\external\user_summary_exporter($user);
-			$user = $exporter->export($output);
-			$data->users[] = $user;
+			$exporter = new core_competency\external\competency_exporter($competency, array('context' => $coursecontext));
+			$competencydata = $exporter->export($output);
+			$data->competencies[$competency->get_idnumber()] = $competencydata;
 		}
 
-		//print_object($data);
+		$data->users = array();
+		$currentgroup = groups_get_course_group($course, true);
+		$this->users = get_enrolled_users($coursecontext, 'moodle/competency:coursecompetencygradable', $currentgroup);
+
+		foreach ($this->users as $key => $user) {
+			$user->competencies = array();
+			$usercompetencycourses = core_competency\api::list_user_competencies_in_course($course->id, $user->id);
+
+			foreach ($usercompetencycourses as $usercompetencycourse) {
+				$competency = null;
+				foreach ($data->competencies as $idnumber => $coursecompetency) {
+					if ($coursecompetency->id == $usercompetencycourse->get_competencyid()) {
+						$exporter = new core_competency\external\user_competency_course_exporter($usercompetencycourse, array('scale' => $scale));
+						$competency = $exporter->export($output);
+						break;
+					}
+				}
+				$user->competencies[$idnumber] = $competency;
+			}
+
+			$data->users[] = $user;
+		}
+		//$data->users
+
+		print_object($data);
 
 		/*
 		$data->usercompetencies = array();
