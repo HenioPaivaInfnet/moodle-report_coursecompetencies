@@ -1,0 +1,32 @@
+.path-report-coursecompetencies .reportparent {
+	overflow: auto;
+}
+
+.path-report-coursecompetencies thead th,
+.path-report-coursecompetencies td {
+	vertical-align: middle !important;
+}
+
+.path-report-coursecompetencies .competency-idnumber,
+.path-report-coursecompetencies td {
+	text-align: center !important;
+}
+
+.path-report-coursecompetencies .competency-description {
+	height: 50px;
+	overflow: auto;
+}
+
+.path-report-coursecompetencies tbody th,
+.path-report-coursecompetencies .competency-description {
+	min-width: 200px;
+}
+
+.path-report-coursecompetencies tbody th,
+.path-report-coursecompetencies .competency-description {
+	font-weight: normal;
+}
+
+.path-report-coursecompetencies tbody th img {
+	margin-right: 4px;
+}

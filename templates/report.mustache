@@ -1,5 +1,71 @@
-{{course.id}}
+<div class="reportparent" data-region="course-competencies-report">
+	<table class="table table-bordered">
+		<summary class="accesshide">
+			<p>{{#str}}tablesummary, report_coursecompetencies{{/str}}</p>
+		</summary>
+		<thead>
+			<tr>
+				<th scope="col">{{#str}}student, report_coursecompetencies{{/str}}</th>
+				{{#competencies}}
+				<th scope="col">
+					<div class="competency-idnumber">{{idnumber}}<a href="#" data-action="competency-toggledescription" data-id="{{id}}">{{{img_toggledescription}}}</a></div>
+					<div class="competency-description accesshide" data-id="{{id}}">{{description}}</div>
+				</th>
+				{{/competencies}}
+			</tr>
+		</thead>
+		<tbody>
+		{{#users}}
+			<tr>
+				<th scope="row">
+					{{{picture}}}<a href="{{{profileurl}}}">{{{fullname}}}</a>
+				</th>
+				{{#competencies}}
+				<!--
+				<td class="alert {{#grade}}alert-{{#proficiency}}success{{/proficiency}}{{^proficiency}}error{{/proficiency}}{{/grade}}"
+					data-user-competency="true"
+					data-userid="{{userid}}"
+					data-competencyid="{{competencyid}}"
+					data-courseid="{{courseid}}"
+				>
+					{{> report_competency/user_competency_summary}}
+				</td>
+				-->
+				<td class="alert {{#grade}}alert-{{#proficiency}}success{{/proficiency}}{{^proficiency}}error{{/proficiency}}{{/grade}}">
+					<a
+						href="#"
+						title="{{#str}}usercompetencysummary, report_competency{{/str}}"
+						data-user-competency="true"
+						data-userid="{{userid}}"
+						data-competencyid="{{competencyid}}"
+						data-courseid="{{courseid}}"
+					>
+						{{#grade}}{{gradename}}{{/grade}}
+						{{^grade}}{{#str}}notrated, report_competency{{/str}}{{/grade}}
+					</a>
+				{{/competencies}}
+			</tr>
+		{{/users}}
+		</tbody>
+	</table>
+</div>
+{{#js}}
+/*
+document.querySelectorAll('[data-action=competency-toggledescription]').forEach(function(toggler) {
+	var dataId = el.getAttribute('data-id');
+	var descriptionDiv =
 
-{{#users}}
-	<p>{{id}}</p>
-{{/users}}
+	if (el.classList.contains(''))
+});
+//*/
+
+require(['tool_lp/competencydialogue'], function(Compdialogue) {
+	Compdialogue.init();
+});
+require(['report_competency/grading_popup'], function(Popup) {
+	var gradingPopup = new Popup('[data-region=course-competencies-report]', '[data-user-competency=true]');
+	gradingPopup._refresh = function() {
+		return;
+	}
+});
+{{/js}}
