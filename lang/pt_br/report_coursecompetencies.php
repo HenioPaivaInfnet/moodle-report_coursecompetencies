@@ -6,6 +6,7 @@
  * @copyright  2016 Instituto Infnet
  */
 
+$string['competencies_result'] = 'Resultado por competência';
 $string['competency_hidedescription'] = 'Ocultar nome da competência';
 $string['competency_showdescription'] = 'Exibir nome da competência';
 $string['export_xls'] = 'Exportar para Excel';

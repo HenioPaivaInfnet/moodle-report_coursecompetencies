@@ -20,13 +20,14 @@ require_login($course);
 $context = context_course::instance($course->id);
 
 $url = new moodle_url('/report/coursecompetencies/index.php', $params);
-$title = get_string('pluginname', 'report_coursecompetencies');
-$coursename = format_string($course->fullname, true, array('context' => $context));
+$PAGE->set_url($url);
 
 $page = new report_coursecompetencies_report($course);
+$coursename = format_string($course->fullname, true, array('context' => $context));
 
 if ($export_xls !== 1) {
-	$PAGE->set_url($url);
+	$title = get_string('pluginname', 'report_coursecompetencies');
+
 	$PAGE->set_title($title);
 	$PAGE->set_heading($coursename);
 	$PAGE->set_pagelayout('incourse');
@@ -54,6 +55,7 @@ if ($export_xls !== 1) {
 } else {
 	$data = $page->export_for_template($output);
 	$data->category_path = $PAGE->category->path;
+	$data->course_name = $coursename;
 
 	$export = $page->export_xls($data);
 }

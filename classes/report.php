@@ -97,11 +97,36 @@ class report_coursecompetencies_report implements renderable, templatable {
 	public function export_xls(stdClass $data) {
 		require_once(__DIR__ . '/../../../lib/excellib.class.php');
 
-		$coursename = format_string($this->course->fullname, true, array('context' => $this->context));
-		$downloadfilename = clean_filename("$coursename.xls");
+		global $DB;
+
+		$course_name = $data->course_name;
+		$downloadfilename = clean_filename("$course_name.xls");
 		$workbook = new MoodleExcelWorkbook($downloadfilename);
 		$workbook->send($downloadfilename);
 		$myxls = $workbook->add_worksheet(get_string('xls_sheet_name', 'report_coursecompetencies'));
+		$first_row = 0;
+		$first_col = 0;
+
+		$categories = explode('/', $data->category_path);
+		$modalidade = $DB->get_field('course_categories', 'name', array('id' => $categories[1]));
+		$programa = $DB->get_field('course_categories', 'name', array('id' => $categories[3]));
+		$classe = $DB->get_field('course_categories', 'name', array('id' => $categories[4]));
+		$bloco = $DB->get_field('course_categories', 'name', array('id' => $categories[5]));
+
+		// Header
+		$header = array();
+		$header[0] = implode(' - ', array(
+			$modalidade,
+			$programa,
+			$classe
+		));
+		$header[1] = 'Disciplina: ' . $course_name . ' / Bloco: ' . $bloco;
+
+		$myxls->write_string($first_row, $first_col, $header[0]);
+		$myxls->write_string($first_row + 1, $first_col, $header[1]);
+
+		$myxls->write_string($first_row + 2, $first_col, get_string('student', 'report_coursecompetencies'));
+		$myxls->write_string($first_row + 2, $first_col + 1, get_string('competencies_result', 'report_coursecompetencies'));
 
 		$workbook->close();
 
