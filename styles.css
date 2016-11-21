@@ -1,5 +1,11 @@
+.path-report-coursecompetencies .btn_container {
+	margin-bottom: 10px;
+}
+
 .path-report-coursecompetencies .reportparent {
+	height: 500px;
 	overflow: auto;
+	resize: vertical;
 }
 
 .path-report-coursecompetencies thead th,

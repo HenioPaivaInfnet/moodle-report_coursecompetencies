@@ -38,11 +38,8 @@ class report_coursecompetencies_report implements renderable, templatable {
 	 * @return stdClass
 	 */
 	public function export_for_template(renderer_base $output) {
-		global $DB;
-
 		$data = new stdClass();
 		$scale = null;
-		$framework = null;
 
 		$course = $this->course;
 		$coursecontext = $this->context;
@@ -50,9 +47,6 @@ class report_coursecompetencies_report implements renderable, templatable {
 		$data->competencies = array();
 		$this->competencies = core_competency\course_competency::list_competencies($course->id);
 		foreach ($this->competencies as $key => $competency) {
-			if (!isset($framework)) {
-				$framework = $competency->get_framework();
-			}
 			if (!isset($scale)) {
 				$scale = $competency->get_scale();
 			}
@@ -98,5 +92,19 @@ class report_coursecompetencies_report implements renderable, templatable {
 		$data->img_toggledescription = $output->pix_icon('t/collapsed', get_string('competency_showdescription', 'report_coursecompetencies'));
 
 		return $data;
+	}
+
+	public function export_xls(stdClass $data) {
+		require_once(__DIR__ . '/../../../lib/excellib.class.php');
+
+		$coursename = format_string($this->course->fullname, true, array('context' => $this->context));
+		$downloadfilename = clean_filename("$coursename.xls");
+		$workbook = new MoodleExcelWorkbook($downloadfilename);
+		$workbook->send($downloadfilename);
+		$myxls = $workbook->add_worksheet(get_string('xls_sheet_name', 'report_coursecompetencies'));
+
+		$workbook->close();
+
+		exit;
 	}
 }

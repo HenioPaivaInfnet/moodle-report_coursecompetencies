@@ -50,14 +50,29 @@
 	</table>
 </div>
 {{#js}}
-/*
-document.querySelectorAll('[data-action=competency-toggledescription]').forEach(function(toggler) {
-	var dataId = el.getAttribute('data-id');
-	var descriptionDiv =
+toggleDescription = function() {
+	var dataId = this.getAttribute('data-id');
+	var description = document.querySelector('.competency-description[data-id="' + this.getAttribute('data-id') + '"]');
+	var togglerImg = this.children[0];
+	var oldImg;
+	var newImg;
 
-	if (el.classList.contains(''))
+	if (description.classList.contains('accesshide')) {
+		description.classList.remove('accesshide');
+		oldImg = 'collapsed';
+		newImg = 'expanded';
+	} else {
+		description.classList.add('accesshide');
+		oldImg = 'expanded';
+		newImg = 'collapsed';
+	}
+
+	togglerImg.setAttribute('src', togglerImg.getAttribute('src').replace(oldImg, newImg));
+};
+
+document.querySelectorAll('[data-action=competency-toggledescription]').forEach(function(toggler) {
+	toggler.onclick = toggleDescription;
 });
-//*/
 
 require(['tool_lp/competencydialogue'], function(Compdialogue) {
 	Compdialogue.init();
