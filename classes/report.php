@@ -45,8 +45,8 @@ class report_coursecompetencies_report implements renderable, templatable {
 		$coursecontext = $this->context;
 
 		$external_grade_scale_values = array(
-			'2' => 70,
-			'3' => 90,
+			'2' => 50,
+			'3' => 75,
 			'4' => 100
 		);
 
@@ -59,6 +59,7 @@ class report_coursecompetencies_report implements renderable, templatable {
 
 			$exporter = new core_competency\external\competency_exporter($competency, array('context' => $coursecontext));
 			$competencydata = $exporter->export($output);
+			$competencydata->description = format_string($competencydata->description);
 			$data->competencies[] = $competencydata;
 		}
 		usort($data->competencies, function($competency1, $competency2) {
@@ -105,6 +106,8 @@ class report_coursecompetencies_report implements renderable, templatable {
 			if ($user->course_passed === false) {
 				$user->external_grade *= 0.4;
 			}
+
+			$user->external_grade = round($user->external_grade);
 
 			$data->users[] = $user;
 		}
@@ -269,7 +272,7 @@ class report_coursecompetencies_report implements renderable, templatable {
 			$xls_sheet->write_number($row, $col + 2, $user->external_grade, $format);
 		}
 
-		$xls_sheet_competencies = $workbook->add_worksheet(get_string('xls_sheet_competencies', 'report_coursecompetencies'));
+		$xls_sheet_competencies = $workbook->add_worksheet(get_string('competencies', 'core_competency'));
 
 		// Column widths
 		$xls_sheet_competencies->set_column(0, 0, $col_widths['left_margin']);
@@ -285,7 +288,7 @@ class report_coursecompetencies_report implements renderable, templatable {
 		$xls_sheet_competencies->merge_cells($first_row + 1, $first_col, $first_row + 1, $first_col + 1);
 		$xls_sheet_competencies->write_blank($first_row + 1, $first_col + 1, $workbook->add_format(array('right' => 2)));
 
-		$xls_sheet_competencies->write_string($first_row + 2, $first_col, get_string('xls_sheet_competencies', 'report_coursecompetencies'), $workbook->add_format(array_merge($formats['centre_bold'], $formats['course_result_header'], array('border' => 2, 'size' => 14))));
+		$xls_sheet_competencies->write_string($first_row + 2, $first_col, get_string('competencies', 'core_competency'), $workbook->add_format(array_merge($formats['centre_bold'], $formats['course_result_header'], array('border' => 2, 'size' => 14))));
 		$xls_sheet_competencies->merge_cells($first_row + 2, $first_col, $first_row + 2, $first_col + 1);
 		$xls_sheet_competencies->write_blank($first_row + 2, $first_col + 1, $workbook->add_format(array('border' => 2)));
 

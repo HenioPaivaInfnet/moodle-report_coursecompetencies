@@ -9,9 +9,9 @@
 $string['competencies_result'] = 'Resultado por competência';
 $string['competency_hidedescription'] = 'Ocultar nome da competência';
 $string['competency_showdescription'] = 'Exibir nome da competência';
-$string['course_result'] = 'Aprovação por aproveitamento na disciplina';
-$string['course_result_failed'] = 'Reprovado por aproveitamento';
-$string['course_result_passed'] = 'Aprovado por aproveitamento';
+$string['course_result'] = 'Resultado por aproveitamento na disciplina';
+$string['course_result_failed'] = 'Reprovação por aproveitamento';
+$string['course_result_passed'] = 'Aprovação por aproveitamento';
 $string['export_xls'] = 'Exportar para Excel';
 $string['external_grade'] = 'Grau para fins externos';
 $string['pluginname'] = 'Competências da disciplina por estudante';
