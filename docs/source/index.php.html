@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+/**
+ * P&aacute;gina do relat&oacute;rio de compet&ecirc;ncias do curso por estudante.
+ * 
+ * Exibe uma tabela com a lista de estudantes do curso e conceitos de cada
+ * compet&ecirc;ncia. Permite alterar os resultados individualmente, incluindo
+ * evid&ecirc;ncia no hist&oacute;rico da compet&ecirc;ncia.
+ *
+ * @package    report_coursecompetencies
+ * @copyright  2017 Instituto Infnet {@link http://infnet.edu.br}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
+
+require_once(__DIR__ . '/../../config.php');
+
+$id = required_param('id', PARAM_INT);
+
+$export_xls = optional_param('export_xls', false, PARAM_BOOL);
+
+$params = array('id' =&gt; $id);
+$course = $DB-&gt;get_record('course', $params, '*', MUST_EXIST);
+require_login($course);
+$context = context_course::instance($course-&gt;id);
+
+$url = new moodle_url('/report/coursecompetencies/index.php', $params);
+$PAGE-&gt;set_url($url);
+
+$page = new report_coursecompetencies_report($course);
+$coursename = format_string($course-&gt;fullname, true, array('context' =&gt; $context));
+
+if ($export_xls !== 1) {
+	$title = get_string('pluginname', 'report_coursecompetencies');
+
+	$PAGE-&gt;set_title($title);
+	$PAGE-&gt;set_heading($coursename);
+	$PAGE-&gt;set_pagelayout('incourse');
+}
+
+// get_renderer must be called after above functions for the layout to render properly
+$output = $PAGE-&gt;get_renderer('report_coursecompetencies');
+
+if ($export_xls !== 1) {
+	echo $output-&gt;header();
+	echo $output-&gt;heading($title, 3);
+
+	$url-&gt;param('export_xls', true);
+	echo html_writer::div(
+		html_writer::link(
+			$url,
+			get_string('export_xls', 'report_coursecompetencies'),
+			array('class' =&gt; 'btn btn-primary')
+		),
+		'btn_container'
+	);
+
+	echo $output-&gt;render_report($page);
+	echo $output-&gt;footer();
+} else {
+	$data = $page-&gt;export_for_template($output);
+	$data-&gt;category_path = $PAGE-&gt;category-&gt;path;
+	$data-&gt;course_name = $coursename;
+
+	$export = $page-&gt;export_xls($data);
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

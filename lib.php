@@ -1,24 +1,37 @@
 <?php
-// This file is NOT part of Moodle - http://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
-
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Public API of the course competencies report.
+ * API pública do relatório de competências por estudante.
  *
- * Defines the APIs used by course competencies reports
+ * Define as APIs utilizadas pelo relatório.
  *
  * @package    report_coursecompetencies
- * @copyright  2016 Instituto Infnet
+ * @copyright  2017 Instituto Infnet {@link http://infnet.edu.br}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 /**
- * This function extends the navigation with the report items
+ * Extende o menu de navegação lateral do curso com um item para o relatório.
  *
- * @param navigation_node $navigation The navigation node to extend
- * @param stdClass $course The course to object for the report
- * @param stdClass $context The context of the course
+ * @param navigation_node $navigation O nódulo de navegação do menu onde o item
+ * será incluído.
+ * @param stdClass $course Objeto do curso referente ao relatório.
+ * @param stdClass $context Objeto de contexto do curso.
  */
 function report_coursecompetencies_extend_navigation_course($navigation, $course, $context) {
 	if (!get_config('core_competency', 'enabled')) {

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project title="API Documentation" version="2.9.0">
+  <partials/>
+  <file path="lang\pt_br\report_coursecompetencies.php" generated-path="lang.pt_br.report_coursecompetencies.html" hash="b9611072d0a515852666749249ee29d3" package="report_coursecompetencies">
+    <docblock line="0">
+      <description>Textos do plugin em português do Brasil.</description>
+      <long-description>Contém os textos utilizados pelo plugin, em português do Brasil.</long-description>
+      <tag name="package" line="0" description="report_coursecompetencies"/>
+      <tag name="copyright" line="0" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+      <tag name="license" line="0" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+    </docblock>
+    <source>eJyNVdtu20YQfTfgf5iHAm4MlWqThwK5NYohOwJcW9AFgVEEwogckossdxd70aVFviYPQfIb+rHOLqXIblXVepDI1Tlnz5yZJV/+ZmpzetLtwqQWDkohCfjXoPWgS/hd64JXfoLae/O8223SfaZt1Y2kRNxiItsSgdOlX6Kl57DWAXJUYKkQzlsxD55hHlAVXW2h0YUo10mCF4MqyIKvCTzZxsXN483VzRSuSJFFCcMwlyKHa5GTcgTINuOKq6mAeSsUKZfRxXjrAi41K6MXWnWABP9vYUHW8T08222yVeyAtknlR/TRvAVtIvEJO16DRL/nZgeq3xdZgFBJuNaG66lZjitcCilhThAclUF2EpvR8H4weXc7nUDv5g7e90aj3s3k7gWjfa35X1pQqyUaIwVLc1UWlV+z+dZAf3Txjjm9t4PrweSOa4DLweSmPx7D5e0IejDsjSaDi+l1bwTD6Wh4O+5nAGOKxigpHMm4TH3iGAvyKKTb133HzXXsUBZQ44K4yTmJBftDyLVZ/3//kgpKrapU6zZItjYoQWnfAccWX27nbrlcZpUKafBky3fd19HN+fnpCZzDhFZecw80GBkqjp8aMNr6UIXNt7T+1qITMovoxLjQym++NsAs35KDF1L8iQVfGpI7pc5RKUhfbwzmH7Ei4I+lCJ7lPD+Oct0Y8qRyQa5FxnCsqGoP8PTnX36FgXJe+OA1X5WKPPz1Rgr1cXfgRFrMqAjZ3H5qJbYBxM0OxBM3kFT6bmVkVvtGtj0YXsPiWRyONMenJ+fcxtOTH+LIquqPs/tGZ5ZckP7sA7yCs1G6xhgsk1vY5hvj8OzFIf56VouCCnK5Fen0tDK3eVSx3NmGhwkfJcTjtfyXUH8l5uJROjH/I6WgsXrBTwRsSHH6CuMBzgUfMnVEaVbyMaBiJxg1cPNl8/mQ5hEVg87tVHqPF6FVmq2VdLsw4j3Hys9rhP4qJ/kPPPdaoZxVFgtqOVcWQ4svhXLQQrR7wGsnX7GDlnNxL2UXY99HlSyT86HghxI9UImLXMLW6kGIx7nkRJoG7brFTRsEXiWZehtPZ2w1b0r7XVzslrGiIWEjTAaFnQRnd/kRr5HGbzZ+SQVDVmibPXDDufLQEfnZvvTvQ+P+A3r/5BxIK7L+BukYivw=</source>
+  </file>
+  <file path="classes\renderer.php" generated-path="classes.renderer.html" hash="599c0b01eb14b44fe5950553471a26cc" package="report_coursecompetencies">
+    <docblock line="0">
+      <description>Arquivo contendo a classe de renderização do relatório.</description>
+      <long-description>Contém a classe que realiza a renderização do relatório.</long-description>
+      <tag name="package" line="0" description="report_coursecompetencies"/>
+      <tag name="copyright" line="0" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+      <tag name="license" line="0" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="" line="37" package="report_coursecompetencies">
+      <extends>\plugin_renderer_base</extends>
+      <name>report_coursecompetencies_renderer</name>
+      <full_name>\report_coursecompetencies_renderer</full_name>
+      <docblock line="37">
+        <description>Classe de renderização do relatório.</description>
+        <long-description>Obtém dados do relatório e envia para o template mustache.</long-description>
+        <tag name="package" line="37" description="report_coursecompetencies"/>
+        <tag name="copyright" line="37" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+        <tag name="license" line="37" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="45" package="report_coursecompetencies">
+        <name>render_report</name>
+        <full_name>\report_coursecompetencies_renderer::render_report()</full_name>
+        <docblock line="45">
+          <description>Obtém dados do relatório e envia para o template mustache.</description>
+          <long-description></long-description>
+          <tag name="param" line="45" description="&lt;p&gt;Página do relatório, com dados para exibição.&lt;/p&gt;" type="\report" variable="$page">
+            <type>\report</type>
+          </tag>
+          <tag name="return" line="45" description="Código HTML para exibição do relatório." type="string">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$page</name>
+          <default></default>
+          <type>\report</type>
+        </argument>
+      </method>
+    </class>
+    <source>eJzVVdtu2kAQfSZS/mEeIuUiYvfyUClp07iUNEgEEDiq8oQWe4xXXe+6u2sIvXxM1Yeqz/kEfqyza1PUu6o+FSHAu3POnD0zOzx+Wubl7k4YQpxzAxkXCPRdMm1BZXClVEorx5BbW56EYeGfA6XnoQN5YBPj0BoRjMrskmk8gZWqIGESNKbcWM1nlaUwC0ymodJQqJRnK09Bi5VMUYPNESzqwrjk7uHF4BpeoETNBIyqmeAJ9HmC0iAwkulWTI4pzGoiB7lwKiaNCrhQxMwsV7INyGlfwwK1oWd4uEnSMLZBac9ywKwTr0GVDnhIilcgmN1ig5+cfnvIFLj0xLkq6Tw50dEJl1wImCFUBrNKtD2aouFlL74cXscQDW7gZTQeR4P45pSiba5oFxdYc/GiFJyo6VSaSbsi8bWA7rhzSZjoWa/fi2/oDHDRiwfdyQQuhmOIYBSN417nuh+NYXQ9Hg0n3QBggk4YeobfeJz5OpGNKVrGhdme+4aKa0ihSCFnC6QiJ8gXpI9BosrVn+vnWZhQcu7P2hhJ0noZSGXbYEji46bvlstlMJeVbzxR40145tQcHe3uwBFE+nXFF4pyS4syVU6GYMY45aTNNRd/w9af1h8V0K5GKuf6TnMVeLj/6BB2/bnYQl9XDssEIWnxjyye5LxkySs2R6CXxlJpO02olQwmqiiRtCUcTR3pfNJ8nluAB/fuP4KeNJbbyir6lUm08PZccPlqc/e4XwwwrYKZfl9TNF64ZD9xyiUQmNlwXoogt4WoyzHqw+Kh6xPf0rs7R1TR3Z0UMy4xPdi/Gg6f97vT3iDujgdRf/8Q3r2j5sZTF7Xxu/O35g5n3tuUpcp8GwQIKBecuaHDQNH9p04nZVBUxrIkx//eXN9OvxY8rS2k6YK3rnlprolqzuXX9emMkYy3zv+WL0Drnw1tQUNz7oKKRhzslc7d0foDpWffsrbpbm3SeWK85TPuix40VBptpSW4MUi3urO+S/lcwWV81f8e8UObEJ6MapX1iMgqmbjJ2zTXtFZ38DsHt/IPnVOt1h5NfQZP6rXjM7z1WBpo040fB3uW/vMOT110I92vHJ81aTOtim30/i/Th/XOfht8Us9IPUTvL/d1fCE=</source>
+  </file>
+  <file path="version.php" generated-path="version.html" hash="a969b4e7b5d8a36c538d5aa035d0cc1d" package="report_coursecompetencies">
+    <docblock line="0">
+      <description>Detalhes da versão do plugin.</description>
+      <long-description>Define a versão atual do plugin, nome e versão mínima do Moodle necessária.</long-description>
+      <tag name="package" line="0" description="report_coursecompetencies"/>
+      <tag name="copyright" line="0" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+      <tag name="license" line="0" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+    </docblock>
+    <source>eJyFVNtuGjEQfY/EP8xDJUhEuDRqq+bW0AIJEjctoISnyOzOsla89tb2glDTj6n63K/Ij3VsFuhD2u7D7tqeOXNmzowvP2VJVjqq12GacAMxFwj0zZi2oGIYKBXRzikk1mbn9Xrq1zWll3Xn5B0LG+etEcGo2K6ZxnPYqBxCJkFjxI3VfJFbMrPAZFRXGlIV8XjjIWgzlxFqsAmCRZ0aF9wtboczuEWJmgkY5wvBQ+jzEKVBYETT7ZgEI1hsgZxL17GYFCygqwiZWa5kFZDTuYYVakNrONsFKRCroLRHqTDryGtQmXM8JsYbEMwefGuvZH9IMgIuPXCiMsonITjKcM2FgAVCbjDORdV7kzXc96Z3o9kUWsM53LeCoDWczi/I2iaKTnGFWyyeZoITNGWlmbQbIr8l0Am+3JFP63Ov35vOKQfo9qbDzmQC3VEALRi3gmnvy6zfCmA8C8ajSacGMEFHDD3CP2oce52ojBFaxoU55D0ncQ0xFBEkbIUkcoh8RfwYhCrb/F8/j8KEkkufa1FIotaLQSpbBUMUL4u+W6/XtaXMfeOJrb+pXzs2JyelIziBNvETCZIKzGv08lNBpCAT+ZI7tWBnFnNJrbO3YTYnZnvLKoVOEXB/nr78kjxlzqJQWlKixrz80Jx5XPCvm4yFT2yJQI/GTGn7GFIHGQxVmqFFGXI0W0tXHs2XiQV422h+gJ40ltvcKvqLJVr4diO4fNqNHPebNYzy2kJ/30IUJXDBXimQCyAwtvVlJmqJTcVWhXEfVmeuPXwnOyBSsnQU+ZJElfJgNGr3O4+94bQTDFv98jE8P1NTY+X4wtmVjt5sa3R6vRsggCuXwvtm86zRaFyAv0UQwlxrlLYo6X7cKm2Kew5zegaDdvvh4bj2B6bGrznXJGCB2XjX/FhgBrsj666oQobDIO4hXKmVdJGvoPxXEcoes5vTMEpGWheNWpCt0HRGvu0jzpZSkTShcUR/A1QerYw=</source>
+  </file>
+  <file path="index.php" generated-path="index.html" hash="9a8cf2e74525c49c8d3d76dcdbb8b01c" package="report_coursecompetencies">
+    <docblock line="0">
+      <description>Página do relatório de competências do curso por estudante.</description>
+      <long-description>Exibe uma tabela com a lista de estudantes do curso e conceitos de cada
+competência. Permite alterar os resultados individualmente, incluindo
+evidência no histórico da competência.</long-description>
+      <tag name="package" line="0" description="report_coursecompetencies"/>
+      <tag name="copyright" line="0" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+      <tag name="license" line="0" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+    </docblock>
+    <source>eJyFVttu2zgQfW6A/MMsEMBO4Mt2+7BA2njrtklrIE0M20E3TwItURZRSlQpKo5R9GP2dV/3E/pje4akE6dN2yBxJHLmzMyZw6Ff/FUX9f7ecEiLQjWUKy0J/2thHZmc3huTYaVPhXP18XBY+veBsashO3nHaMPeVkpqTO7Wwspj2piWUlGRlZlqnFXL1sHMkaiyobFUmkzlGw+BxbbKpCVXSHLSlg0H55e3F1f0VlbSCk3TdqlVSucqlVUjSSBNXmkKmdEyALHLGWcxj1nQmQGycMpUPZIK+5ZupG3wTs+2QSJij4z1KF3hOHlLpmbHQ2S8IS3cve/gkervi8xIVR64MDXqKQCHCtdKa1pKahuZt7rnvWFNHyaLd5dXCxpfXNOH8Ww2vlhcP4e1Kwx25Y0MWKqstQI0qrKichskHxI4nb1+B5/xq8n5ZHGNGuhssrg4nc/p7HJGY5qOZ4vJ66vz8YymV7Pp5fx0QDSXnJj0CD/hOPd9Ao2ZdELp5r7uazS3QYY6o0LcSDQ5leoG+QlKTb35df88itCmWvlaI5FIbZJTZVyPGqT4IupuvV4PVlXrhaeDfzMccTZHR/t7dETTr/+sVCUoM8gErfr6n1UGWSOZspbu679VqiAYbKetbQzVKEw2rs1ApRx4CP9xequ4RaUgJ5YAYn+UBJU5wXB3PjtYHKRC9c40PqLIhMfaDT2gKWStcACEho4EtNUg06bVTmR4VFWmblTWCl1KoPewkOoWq8ZDSewFIHBDOKm+wBQViodh2Np7vKxF+lGsJOHHSpTrkhSSbmQwl7CWTbDkflm1KhzRH78//ZMmVeOUa53BU15JR59falV93M4A5RcHMmsHS/slQMSecLBHOsYBtMzdcFXrQeFKHWQxPaebZ6xXf7T2946grP09Kz+1ysqEKe0myZvJLEloQJ3hYMC/oDpXqwGmVufwOdsfqIxOKHplCSaXKLsdlXV6rPzx+2RysYiW8tbzcKsbeISzLfTW434TnrnQPA8CwKvLy/OI4G3Zmw/hxoehkxEhBzY4CAxj++DNq/5oJV2CY2Fs1u2EHSBHiB51jvD2/mq+SE7/nsx9itvStYGWuxEtAkMUtw7I8Sk28/hYoVmCqYrm/VHIBU6t1XCo5JrC2E6w0O0MgxqG36sBnc3kraf2Lk8ffTp+e9ofNSiHERj3jo6VjCF+qLEk7HxTDj9WomRvzJhSuISHZ7W6LwMzUrNFj5xt8RkZj/UH2uPLYUhH5dTd7fFvJyf09JA+7+89OYCgNQfjnsRInVq34JljoN7ODwuIOnuyQ4NH6wZQ3t3dK6TIdgph+G9NmDYtcMM4KKiK0mCjLxwIYzEoh29EXDll2zi+N1KhNc/XnO8hsTQYunlbpazixg9qnrcBlhyPQX+j1hZ3kNW4Hg+wUbesoZjKbpTuL+v/CbsyLQxF+P6ICQCgL/r7HU+NJ65Hz7bMQlH90WPnkFt/D8SjI1lbTFF7fIx52cXGkweLPKf8qsfs+afdlj8A/1nJwXWrOS2axiuus3QV4a9fW1UKu+kcsl2w5r2EFSkU7rsOlmJ5D0kIjN+dCtbCI1TlxrhI4heSGEZBxvgmI7iB7NUfxWrQ+8RJfD3AGO1GhCA5Nu+PUqyvjN1Ad7hn79q/XWbmXbFr7/lI4vHc0XHsVgj7XRogtesRopL/BzCOYwM=</source>
+  </file>
+  <file path="lang\en\report_coursecompetencies.php" generated-path="lang.en.report_coursecompetencies.html" hash="de0db50965c7b791fa4d7933808953c4" package="report_coursecompetencies">
+    <docblock line="0">
+      <description>Textos do plugin em inglês.</description>
+      <long-description>Contém os textos utilizados pelo plugin, em inglês.</long-description>
+      <tag name="package" line="0" description="report_coursecompetencies"/>
+      <tag name="copyright" line="0" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+      <tag name="license" line="0" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+    </docblock>
+    <source>eJyNVNtuEzEQfa/Uf5gHpEIVEi4PSC23UCVtpNJGSSpUIRQ5u7O7Fl7bsmeTBsQHwW/wY4zthKQlFPqQesfnHJ+52C/f2Mru73U6MKmkh0IqBP5vhSMwBbw3JufIY6iI7FGnU8fvtnFlJ5AicYUJbIcI3hS0EA6PYGkayIQGh7n05OSsIYYRCJ13jIPa5LJYRgkONjpHB1QhELrah8PDx+nFFZyiRicUDJuZkhmcywy1RxBsM0R8hTnMklCg9IOL8coF9A0rC5JGtwAl7zuYo/P8Dc/Xh6wUW2BcVHkoKJh3YGwgPmLHS1CCNtz2juw3SeYgdRSujOV8KpbjDBdSKZghNB6LRrUim9HwYTA5u7yaQPfiGj50R6PuxeT6mNFUGd7FOSYtWVslWZqzckLTks0nA73RyRlzuu8G54PJNecA/cHkojceQ/9yBF0YdkeTwcnVeXcEw6vR8HLcawOMMRjDqHBPjYvYJy5jjiSk8pu8r7m5nh2qHCoxR25yhnLO/gRkxi7/3b+oIpTRZcx1VUi2NihAG2qBZ4svV3O3WCzapW7i4KnE953Xwc3h4f4eHMIEb8hwDwxY1ZRcfqy5CaX6+SN4hgQ6MZp+fq+BgZTwDUklv4iclxbVmty6y4b489aK7LMoEfjPoTWOphlPicfM1BYJdSbRJ2QogZNlRQDPnjx9AQPtSVJDhleFRoKvb5XUn9fXSsZgG/OmPXPfksQqzXDYjiKEAxQW1CmtaldUq1Tp4TnMn4cRiNO6v3fIzdrfexAGU5cfD7aNTh36RtHBJ3gFBydbG7DaON5FXE4rmWOOPnMyXo7EP+MgbECwDfiLDg/P4g+dMQf/TyfU/U4KIbTb/BZ4WvAcY544/bjmx4O773jWa6EzvIdrhfdr7jCu7+PiTZyRG+UToxe/gYegd5OhuoPlfmmhpqUTOSb8aVjGK7je5QfPWcOzf4ubhlaLGm9VYrvZwSN4anLUt2uzjqXq7wCQmClOvq6FWyZUF2Is3dpwx8PJ8cFeifn181dI54l9qKbmO/Ubn+3wJzJnvE/vv7HtWxa4gDwtiDTd5DiKDfF/wW1L/znggfQLEtNbfw==</source>
+  </file>
+  <file path="lib.php" generated-path="lib.html" hash="a60db577de175fa0f72470afe3fb7899" package="report_coursecompetencies">
+    <docblock line="0">
+      <description>API pública do relatório de competências por estudante.</description>
+      <long-description>Define as APIs utilizadas pelo relatório.</long-description>
+      <tag name="package" line="0" description="report_coursecompetencies"/>
+      <tag name="copyright" line="0" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+      <tag name="license" line="0" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+    </docblock>
+    <function namespace="" line="36" package="report_coursecompetencies">
+      <name>report_coursecompetencies_extend_navigation_course</name>
+      <full_name>\report_coursecompetencies_extend_navigation_course()</full_name>
+      <docblock line="36">
+        <description>Extende o menu de navegação lateral do curso com um item para o relatório.</description>
+        <long-description></long-description>
+        <tag name="package" line="36" description="report_coursecompetencies"/>
+        <tag name="param" line="36" description="&lt;p&gt;O nódulo de navegação do menu onde o item&#10;será incluído.&lt;/p&gt;" type="\navigation_node" variable="$navigation">
+          <type>\navigation_node</type>
+        </tag>
+        <tag name="param" line="36" description="&lt;p&gt;Objeto do curso referente ao relatório.&lt;/p&gt;" type="\stdClass" variable="$course">
+          <type>\stdClass</type>
+        </tag>
+        <tag name="param" line="36" description="&lt;p&gt;Objeto de contexto do curso.&lt;/p&gt;" type="\stdClass" variable="$context">
+          <type>\stdClass</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$navigation</name>
+        <default></default>
+        <type>\navigation_node</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$course</name>
+        <default></default>
+        <type>\stdClass</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$context</name>
+        <default></default>
+        <type>\stdClass</type>
+      </argument>
+    </function>
+    <source>eJyFVcFuGzcQPduA/2EKGFjJkLVtcyhgJ25UR3YEKJIgrRH4JFDL2V02XHJBciWrST6myCFAgZ5y61U/1iFXsgzHbgVB0pIzb957M6Re/loV1dFhHENSCAuZkAj0XTHjQGfwTmtOK6dQOFedxXEZnrva5LFPConbGJ9tEMHqzK2YwTNY6xpSpsAgF9YZsagdhTlgisfaQKm5yNYBghZrxdGAKxAcmtL64v7henQD16jQMAmTeiFFCkORorIIjGj6FVsgh0UD5FOuPIvZlgVcaUJmTmjVARS0b2CJxtIzvNgV2SJ2QJuA0mLOkzegK5/YJsZrkMztc7tPqN+L5CBUAC50RXoKgiOFKyElLBBqi1ktOyGbouH9IHk7vkmgN7qF973ptDdKbs8p2hWadnGJDZYoKykImlQZptyayDcE+tPLt5TT+20wHCS3pAGuBsmoP5vB1XgKPZj0psng8mbYm8LkZjoZz/pdgBl6YhgQ/sPjLPSJbOTomJB2r/uWmmuJoeRQsCVSk1MUS+LHINXV+v/7F1CY1CoPWrdGErVBBkq7Dlii+HI7d6vVqpurOgyebPJtfOHZnJwcHcIJ9CYDqDb/+AIMuCY61K/NNyM0USdGZYVu85dKhZ8aEoXW1ZxsxK5PDxBvMBMqjBWBWaidkOIPxn0CyoeI+5TXFUs/sByBXgYJ181TmhuLTUGkemibSG+KEXnhAH7+8adfYKCsE652mn5lCh18fC2F+rA7aCIsdpHX3YX53EBshftiT9jiC0jMXJxXslu4UjbeT4awfOGHIsyvB6L+HR3yIJa3onfj8Zthfz4YJf3pqDeM2vDpE40ynvuonbv9O9JCPmooUdXeUUU9z9nm6+aLbpCpv2R7SuK1txvqkmYeS3+TMHjWPcNKDyXycELnShP08X4BxqA233gt9eOafEtFN7R8qYBp0Wz+pOOXynrzN2+K7QpZxy8lsxaOmybBePE7Or3nbTBDgzQUwL5j/BQIRd65exQ/ZmFlj9jd+p3VKg16nh2SOQaL5w/MaIJaD+zo7Jh37qu34ePR4YHIoPVDjh5YZSJvRSmd2fk9/jrqQISKLSTyqN2kHBh0tVHU5oPPvtUBo2B2nrKKLWj03boVNdd9vAc6e8R8vRS4ih7Q2YIf10bCK1C4ggZjTgutKG70x9/rp4HneNelPyNC8zccVRc8glcXO82nF4K32+cBXbESCd4r9neuIsWVrHOh/IYX+6zP0T3CztTTC8Z5K0CSDqLZeTyRZ2fJ7aQ/n/WTZDC6pu1ayvtPUliJu7kgA4jxVqCnEDVkyVx6/wvAjXim</source>
+  </file>
+  <file path="classes\report.php" generated-path="classes.report.html" hash="d38a748275036262bf0a9138d08c22c8" package="report_coursecompetencies">
+    <docblock line="0">
+      <description>Arquivo contendo a classe que define os dados do relatório.</description>
+      <long-description>Contém a classe que carrega os dados do relatório e exporta para exibição ou
+download.</long-description>
+      <tag name="package" line="0" description="report_coursecompetencies"/>
+      <tag name="copyright" line="0" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+      <tag name="license" line="0" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="" line="39" package="report_coursecompetencies">
+      <extends/>
+      <implements>\renderable</implements>
+      <implements>\templatable</implements>
+      <name>report_coursecompetencies_report</name>
+      <full_name>\report_coursecompetencies_report</full_name>
+      <docblock line="39">
+        <description>Classe contendo dados para o relatório.</description>
+        <long-description>Carrega os dados de estudantes, competências e conceitos de um curso para
+gerar o relatório.</long-description>
+        <tag name="package" line="39" description="report_coursecompetencies"/>
+        <tag name="copyright" line="39" description="2017 Instituto Infnet {@link http://infnet.edu.br}"/>
+        <tag name="license" line="39" description="GNU GPL v3 or later" link="http://www.gnu.org/copyleft/gpl.html"/>
+      </docblock>
+      <property static="false" visibility="protected" namespace="" line="42" package="report_coursecompetencies">
+        <name>$context</name>
+        <full_name>\report_coursecompetencies_report::context</full_name>
+        <default></default>
+        <docblock line="42">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="42" description="&lt;p&gt;Objeto de contexto do curso.&lt;/p&gt;" type="\context" variable="">
+            <type>\context</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="" line="44" package="report_coursecompetencies">
+        <name>$course</name>
+        <full_name>\report_coursecompetencies_report::course</full_name>
+        <default></default>
+        <docblock line="44">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="44" description="&lt;p&gt;Objeto do curso.&lt;/p&gt;" type="\course" variable="">
+            <type>\course</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="" line="46" package="report_coursecompetencies">
+        <name>$competencies</name>
+        <full_name>\report_coursecompetencies_report::competencies</full_name>
+        <default></default>
+        <docblock line="46">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="46" description="&lt;p&gt;Competências associadas ao curso.&lt;/p&gt;" type="array&lt;mixed,\competency&gt;" variable="">
+            <type>array&lt;mixed,\competency&gt;</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="" line="51" package="report_coursecompetencies">
+        <name>$users</name>
+        <full_name>\report_coursecompetencies_report::users</full_name>
+        <default></default>
+        <docblock line="51">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="51" description="&lt;p&gt;Estudantes do curso,&#10;obtidos por {@link get_enrolled_users}.&lt;/p&gt;" type="array&lt;mixed,\stdClass&gt;" variable="">
+            <type>array&lt;mixed,\stdClass&gt;</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="58" package="report_coursecompetencies">
+        <name>__construct</name>
+        <full_name>\report_coursecompetencies_report::__construct()</full_name>
+        <docblock line="58">
+          <description>Retorna uma instância do relatório, com propriedades inicializadas.</description>
+          <long-description></long-description>
+          <tag name="param" line="58" description="&lt;p&gt;Objeto do curso.&lt;/p&gt;" type="\stdClass" variable="$course">
+            <type>\stdClass</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$course</name>
+          <default></default>
+          <type>\stdClass</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="72" package="report_coursecompetencies">
+        <name>export_for_template</name>
+        <full_name>\report_coursecompetencies_report::export_for_template()</full_name>
+        <docblock line="72">
+          <description>Carrega estudantes matriculados e conceitos de competências e exporta
+os dados para serem utilizados em um template no formato mustache.</description>
+          <long-description></long-description>
+          <tag name="param" line="72" description="&lt;p&gt;Instância de uma classe de&#10;renderização, usada para obter dados com orientação a objeto.&lt;/p&gt;" type="\renderer_base" variable="$output">
+            <type>\renderer_base</type>
+          </tag>
+          <tag name="return" line="72" description="Dados a serem utilizados pelo template." type="\stdClass">
+            <type>\stdClass</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$output</name>
+          <default></default>
+          <type>\renderer_base</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="" line="161" package="report_coursecompetencies">
+        <name>export_xls</name>
+        <full_name>\report_coursecompetencies_report::export_xls()</full_name>
+        <docblock line="161">
+          <description>Exporta dados do relatório no formato Excel.</description>
+          <long-description></long-description>
+          <tag name="param" line="161" description="&lt;p&gt;Dados de estudantes e competências exportados&#10;por {@link export_for_template}.&lt;/p&gt;" type="\stdClass" variable="$data">
+            <type>\stdClass</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$data</name>
+          <default></default>
+          <type>\stdClass</type>
+        </argument>
+      </method>
+    </class>
+    <source>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</source>
+  </file>
+  <package name="global" full_name="global"/>
+  <package name="report_coursecompetencies" full_name="report_coursecompetencies"/>
+  <namespace name="global" full_name="global"/>
+  <deprecated count="0"/>
+</project>
