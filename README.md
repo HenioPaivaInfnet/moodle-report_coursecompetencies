@@ -15,7 +15,7 @@ se não houver.
 4. Conferir o plugin na lista exibida e confirmar a atualização do banco de
 dados do Moodle.
 
-## Uso
+## Usabilidade
 
 O relatório pode ser acessado de dentro de qualquer página de um curso, através
 do menu lateral esquerdo `Administração do curso > Competências da disciplina
