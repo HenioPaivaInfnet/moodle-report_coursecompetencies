@@ -17,11 +17,11 @@
  * Textos do plugin em português do Brasil.
  *
  * Contém os textos utilizados pelo plugin, em português do Brasil.
- * 
+ *
  * @package    report_coursecompetencies
  * @copyright  2017 Instituto Infnet {@link http://infnet.edu.br}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ */
 
 $string['competencies_result'] = 'Resultado por competência';
 $string['competency_hidedescription'] = 'Ocultar nome da competência';

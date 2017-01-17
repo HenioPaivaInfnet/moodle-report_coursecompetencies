@@ -17,7 +17,7 @@
  * Detalhes da versão do plugin.
  *
  * Define a versão atual do plugin, nome e versão mínima do Moodle necessária.
- * 
+ *
  * @package    report_coursecompetencies
  * @copyright  2017 Instituto Infnet {@link http://infnet.edu.br}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

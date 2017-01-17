@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
  * Página do relatório de competências do curso por estudante.
- * 
+ *
  * Exibe uma tabela com a lista de estudantes do curso e conceitos de cada
  * competência. Permite alterar os resultados individualmente, incluindo
  * evidência no histórico da competência.
@@ -23,13 +23,13 @@
  * @package    report_coursecompetencies
  * @copyright  2017 Instituto Infnet {@link http://infnet.edu.br}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ */
 
 require_once(__DIR__ . '/../../config.php');
 
 $id = required_param('id', PARAM_INT);
 
-$export_xls = optional_param('export_xls', false, PARAM_BOOL);
+$exportxls = optional_param('export_xls', false, PARAM_BOOL);
 
 $params = array('id' => $id);
 $course = $DB->get_record('course', $params, '*', MUST_EXIST);
@@ -42,37 +42,37 @@ $PAGE->set_url($url);
 $page = new report_coursecompetencies_report($course);
 $coursename = format_string($course->fullname, true, array('context' => $context));
 
-if ($export_xls !== 1) {
-	$title = get_string('pluginname', 'report_coursecompetencies');
+if ($exportxls !== 1) {
+    $title = get_string('pluginname', 'report_coursecompetencies');
 
-	$PAGE->set_title($title);
-	$PAGE->set_heading($coursename);
-	$PAGE->set_pagelayout('incourse');
+    $PAGE->set_title($title);
+    $PAGE->set_heading($coursename);
+    $PAGE->set_pagelayout('incourse');
 }
 
-// get_renderer must be called after above functions for the layout to render properly
+// The get_renderer function must be called after above functions for the layout to render properly.
 $output = $PAGE->get_renderer('report_coursecompetencies');
 
-if ($export_xls !== 1) {
-	echo $output->header();
-	echo $output->heading($title, 3);
+if ($exportxls !== 1) {
+    echo $output->header();
+    echo $output->heading($title, 3);
 
-	$url->param('export_xls', true);
-	echo html_writer::div(
-		html_writer::link(
-			$url,
-			get_string('export_xls', 'report_coursecompetencies'),
-			array('class' => 'btn btn-primary')
-		),
-		'btn_container'
-	);
+    $url->param('export_xls', true);
+    echo html_writer::div(
+        html_writer::link(
+            $url,
+            get_string('export_xls', 'report_coursecompetencies'),
+            array('class' => 'btn btn-primary')
+        ),
+        'btn_container'
+    );
 
-	echo $output->render_report($page);
-	echo $output->footer();
+    echo $output->render_report($page);
+    echo $output->footer();
 } else {
-	$data = $page->export_for_template($output);
-	$data->category_path = $PAGE->category->path;
-	$data->course_name = $coursename;
+    $data = $page->export_for_template($output);
+    $data->categorypath = $PAGE->category->path;
+    $data->coursename = $coursename;
 
-	$export = $page->export_xls($data);
+    $export = $page->export_xls($data);
 }
