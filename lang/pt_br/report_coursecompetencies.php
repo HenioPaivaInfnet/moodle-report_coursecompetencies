@@ -23,6 +23,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['attendance'] = 'Frequência';
+$string['attendance_taken_percentage'] = 'Frequência final';
+$string['attendance_taken_sessions'] = 'Total';
+$string['attendance_result'] = 'Resultado por frequência na disciplina';
+$string['attendance_result_failed'] = 'Reprovação por frequência';
+$string['attendance_result_passed'] = 'Aprovação por frequência';
 $string['competencies_result'] = 'Resultado por competência';
 $string['competency_hidedescription'] = 'Ocultar nome da competência';
 $string['competency_showdescription'] = 'Exibir nome da competência';

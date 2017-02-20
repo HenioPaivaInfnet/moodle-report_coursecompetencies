@@ -23,6 +23,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['attendance'] = 'Attendance';
+$string['attendance_taken_percentage'] = 'Attendance percentage';
+$string['attendance_taken_sessions'] = 'Total';
+$string['attendance_result'] = 'Attendance result';
+$string['attendance_result_failed'] = 'Failed by attendance';
+$string['attendance_result_passed'] = 'Passed by attendance';
 $string['competencies_result'] = 'Competencies result';
 $string['competency_hidedescription'] = 'Hide competency description';
 $string['competency_showdescription'] = 'Show competency description';

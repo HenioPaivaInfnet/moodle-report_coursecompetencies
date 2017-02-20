@@ -26,6 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 
-$plugin->version   = 2016113000; // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2016051900; // Requires this Moodle version.
-$plugin->component = 'report_coursecompetencies'; // Full name of the plugin (used for diagnostics).
+$plugin->version      = 2017022000; // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires     = 2016051900; // Requires this Moodle version.
+$plugin->component    = 'report_coursecompetencies'; // Full name of the plugin (used for diagnostics).
+$plugin->dependencies = array(
+    'mod_attendance' => ANY_VERSION // The attendance activity must be present (any version).
+);

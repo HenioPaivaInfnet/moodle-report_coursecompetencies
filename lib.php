@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die;
  * Extende o menu de navegação lateral do curso com um item para o relatório.
  *
  * @param navigation_node $navigation O nódulo de navegação do menu onde o item
- * será incluído.
+ *                                    será incluído.
  * @param stdClass $course Objeto do curso referente ao relatório.
  * @param stdClass $context Objeto de contexto do curso.
  */

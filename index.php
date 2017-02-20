@@ -74,5 +74,5 @@ if ($exportxls !== 1) {
     $data->categorypath = $PAGE->category->path;
     $data->coursename = $coursename;
 
-    $export = $page->export_xls($data);
+    $export = $page->export_xls();
 }
