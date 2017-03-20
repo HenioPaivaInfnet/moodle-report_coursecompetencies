@@ -505,15 +505,13 @@ class report_coursecompetencies_report implements renderable, templatable {
             $zebra = $formats['zebra_' . (($indexuser % 2 === 0) ? 'even' : 'odd')];
 
             $format = array_merge($zebra, $formats['centre']);
-            $format['bottom'] = ($islastuser) ? 2 : undefined;
+            $format['bottom'] = ($islastuser) ? 2 : null;
 
             $this->xls_write_result_student_name($user, $borders, $zebra, $row);
             $collastcompetency = $this->xls_write_result_student_competencies($user, $format, $row);
             $colbeginattendance = $this->xls_write_result_student_result($user, $borders, $row, $collastcompetency);
             if ($this->attendancesummary !== false) {
-                $user->takensessionssummary = $this->attendancesummary->get_taken_sessions_summary_for($user->id);
-                $this->exporteddata->users[$indexuser] = $user;
-
+                $this->exporteddata->users[$indexuser] = $this->set_user_attendance($user);
                 $colattendanceresult = $this->xls_write_result_student_attendance($user, $format, $row, $colbeginattendance);
                 $this->xls_write_result_attendance_result($user, $borders, $row, $colattendanceresult);
             }
@@ -574,29 +572,52 @@ class report_coursecompetencies_report implements renderable, templatable {
         return $col + 3;
     }
 
+    private function set_user_attendance($user) {
+        $user->allsessionssummary = $this->attendancesummary->get_all_sessions_summary_for($user->id);
+
+        $allsessionssummary = $user->allsessionssummary;
+        $numallsessions = $allsessionssummary->numallsessions;
+        $sessionsbyacronym = $user->allsessionssummary->userstakensessionsbyacronym[0];
+
+        $absentsessions = 0;
+        $latesessions = 0;
+
+        if (isset($sessionsbyacronym['Au'])) {
+            $absentsessions = $sessionsbyacronym['Au'];
+        }
+
+        if (isset($sessionsbyacronym['At'])) {
+            $latesessions = $sessionsbyacronym['At'];
+        }
+
+        $user->attendancepercentage = ($numallsessions - $absentsessions - floor($latesessions / 2)) / $numallsessions;
+
+        return $user;
+    }
+
     private function xls_write_result_student_attendance($user, $format, $row, $col) {
-        $takensessionssummary = $user->takensessionssummary;
-        $sessionsbyacronym = $user->takensessionssummary->userstakensessionsbyacronym;
+        $allsessionssummary = $user->allsessionssummary;
+        $sessionsbyacronym = $user->allsessionssummary->userstakensessionsbyacronym[0];
 
         $formats = $this::XLS_CONFIG['formats'];
 
         foreach ($this->attendancestatuses as $status) {
             $index = $status->index;
-            $numsessions = (isset($sessionsbyacronym[0][$status->acronym])) ? $sessionsbyacronym[0][$status->acronym] : 0;
+            $numsessions = (isset($sessionsbyacronym[$status->acronym])) ? $sessionsbyacronym[$status->acronym] : 0;
 
             $this->xlssheets['result']->write_number($row, $col + $index, $numsessions, $this->xlsworkbook->add_format($format));
         }
 
         $takensessionsformat = array_merge(
             $format,
-            (($format['borders']['bottom'] === 2) ? $formats['border_0222'] : $formats['border_0202']),
+            ((isset($format['borders']) && $format['borders']['bottom'] === 2) ? $formats['border_0222'] : $formats['border_0202']),
             $formats['attendance_taken_sessions']
         );
 
         $this->xlssheets['result']->write_number(
             $row,
             $col + count($this->attendancestatuses),
-            $takensessionssummary->numtakensessions,
+            $allsessionssummary->numallsessions,
             $this->xlsworkbook->add_format($takensessionsformat)
         );
 
@@ -607,31 +628,18 @@ class report_coursecompetencies_report implements renderable, templatable {
         $formats = $this::XLS_CONFIG['formats'];
         $xlssheet = $this->xlssheets['result'];
 
-        $takensessionspercentage = $user->takensessionssummary->takensessionspercentage;
+        $attendancepercentage = $user->attendancepercentage;
         $percentformatter = new \NumberFormatter('pt-BR', NumberFormatter::PERCENT);
         $percentformatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 0);
 
-        $attendanceresult = ($takensessionspercentage >= 0.75) ? 'passed' : 'failed';
+        $attendanceresult = ($attendancepercentage >= 0.75) ? 'passed' : 'failed';
         $format = array_merge($formats['centre'], $borders, $formats['course_result_' . $attendanceresult]);
 
-        /*
         $xlssheet->write_string(
             $row,
             $col,
-            //str_replace('.', ',', round($takensessionspercentage * 100) . '%'),
-            $percentformatter->format($takensessionspercentage),
+            $percentformatter->format($attendancepercentage),
             $format
-        );
-        //*/
-
-        $xlssheet->write_string(
-            $row,
-            $col,
-            //str_replace('.', ',', round($takensessionspercentage * 100) . '%'),
-            $percentformatter->format($takensessionspercentage),
-            //$takensessionspercentage,
-            $format
-            //array_merge($format, array('num_format' => 49))
         );
 
         $xlssheet->write_string(
