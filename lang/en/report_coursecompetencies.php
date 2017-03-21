@@ -35,6 +35,7 @@ $string['competency_showdescription'] = 'Show competency description';
 $string['course_result'] = 'Course result';
 $string['course_result_failed'] = 'Failed by performance';
 $string['course_result_passed'] = 'Passed by performance';
+$string['export_warning'] = 'DON\'T CHANGE THE DATA IN THIS WORKSHEET. THIS IS JUST A REPORT FOR DELIVERY TO THE RESPONSIBLE SCHOOL SECTOR. TO CHANGE THE COMPETENCIES OR ATTENDANCE RESULTS, MAKE THE ADJUSTMENT IN MOODLE AND EXPORT AGAIN';
 $string['export_xls'] = 'Export to Excel';
 $string['external_grade'] = 'Grade for external purposes';
 $string['pluginname'] = 'Course competencies per student';

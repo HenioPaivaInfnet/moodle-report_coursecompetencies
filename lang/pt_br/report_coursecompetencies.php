@@ -35,6 +35,7 @@ $string['competency_showdescription'] = 'Exibir nome da competência';
 $string['course_result'] = 'Resultado por aproveitamento na disciplina';
 $string['course_result_failed'] = 'Reprovação por aproveitamento';
 $string['course_result_passed'] = 'Aprovação por aproveitamento';
+$string['export_warning'] = 'NÃO ALTERE DADOS NESTA PLANILHA. ELA É APENAS UM RELATÓRIO PARA ENTREGA AO RCA. PARA ALTERAR O APROVEITAMENTO OU A FREQUÊNCIA DE UM ESTUDANTE, FAÇA O AJUSTE NO MOODLE E EXPORTE NOVAMENTE';
 $string['export_xls'] = 'Exportar para Excel';
 $string['external_grade'] = 'Grau para fins externos';
 $string['pluginname'] = 'Competências da disciplina por estudante';

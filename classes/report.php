@@ -41,7 +41,7 @@ require_once($CFG->dirroot . '/mod/attendance/classes/summary.php');
 class report_coursecompetencies_report implements renderable, templatable {
     /** @var mixed[] Configurações usadas na exportação para Excel. */
     const XLS_CONFIG = array(
-        'firstrow' => 1,
+        'firstrow' => 3,
         'firstcol' => 1,
         'colwidths' => array(
             'attendance' => 11.69,
@@ -226,8 +226,8 @@ class report_coursecompetencies_report implements renderable, templatable {
         $this->set_attendance_status_index();
 
         $this->xls_create_workbook();
-
         $this->xls_create_result_worksheet();
+
         $this->xls_write_result_header();
         $colbeginattendance = $this->xls_write_result_column_titles();
         $this->xls_write_result_competencies_numbers();
@@ -264,11 +264,57 @@ class report_coursecompetencies_report implements renderable, templatable {
         $this->xlssheets['result'] = $xlssheet;
     }
 
-    private function xls_write_header(MoodleExcelWorksheet $xlssheet, $numcolsmerge) {
-        $workbook = $this->xlsworkbook;
+    private function xls_write_result_header() {
+        $xlssheet = $this->xlssheets['result'];
 
         $xlsconfig = $this::XLS_CONFIG;
         $firstrow = $xlsconfig['firstrow'];
+        $firstcol = $xlsconfig['firstcol'];
+
+        $competenciescount = count($this->exporteddata->competencies);
+        $attendancecolumns = ($this->attendancestatuses !== false) ? count($this->attendancestatuses) + 3 : 0;
+
+        $numcolsmerge = $firstcol + $competenciescount + $attendancecolumns + 2;
+
+        $this->xls_write_warning($numcolsmerge);
+        $this->xls_write_header($xlssheet, $numcolsmerge);
+
+        $xlssheet->merge_cells($firstrow, $firstcol, $firstrow, $numcolsmerge);
+        $col = $firstcol + 1;
+        while ($col <= $numcolsmerge) {
+            $xlssheet->write_blank($firstrow, $col++, $this->xlsworkbook->add_format($xlsconfig['formats']['border_2202']));
+        }
+    }
+
+    private function xls_write_warning($numcolsmerge) {
+        $workbook = $this->xlsworkbook;
+        $xlssheet = $this->xlssheets['result'];
+
+        $xlsconfig = $this::XLS_CONFIG;
+        $firstrow = $xlsconfig['firstrow'];
+        $firstcol = $xlsconfig['firstcol'];
+        $formats = $xlsconfig['formats'];
+
+        $xlssheet->write_string(
+            $firstrow - 2,
+            $firstcol,
+            get_string('export_warning', 'report_coursecompetencies'),
+            $workbook->add_format(array_merge($formats['centre_bold'], array('border' => 2, 'color' => 'red')))
+        );
+        $xlssheet->merge_cells($firstrow - 2, $firstcol, $firstrow - 2, $numcolsmerge);
+
+        $col = $firstcol + 1;
+        while ($col <= $numcolsmerge) {
+            $xlssheet->write_blank($firstrow - 2, $col++, $workbook->add_format(array('border' => 2)));
+        }
+        $xlssheet->set_row($firstrow - 2, 30);
+    }
+
+    private function xls_write_header(MoodleExcelWorksheet $xlssheet, $numcolsmerge, $firstrowoffset = 0) {
+        $workbook = $this->xlsworkbook;
+
+        $xlsconfig = $this::XLS_CONFIG;
+        $firstrow = $xlsconfig['firstrow'] + $firstrowoffset;
         $firstcol = $xlsconfig['firstcol'];
         $formats = $xlsconfig['formats'];
 
@@ -290,27 +336,6 @@ class report_coursecompetencies_report implements renderable, templatable {
 
         $xlssheet->merge_cells($firstrow + 1, $firstcol, $firstrow + 1, $numcolsmerge);
         $xlssheet->write_blank($firstrow + 1, $numcolsmerge, $workbook->add_format(array('right' => 2)));
-    }
-
-    private function xls_write_result_header() {
-        $xlssheet = $this->xlssheets['result'];
-
-        $xlsconfig = $this::XLS_CONFIG;
-        $firstrow = $xlsconfig['firstrow'];
-        $firstcol = $xlsconfig['firstcol'];
-
-        $competenciescount = count($this->exporteddata->competencies);
-        $attendancecolumns = ($this->attendancestatuses !== false) ? count($this->attendancestatuses) + 3 : 0;
-
-        $numcolsmerge = $firstcol + $competenciescount + $attendancecolumns + 2;
-
-        $this->xls_write_header($xlssheet, $numcolsmerge);
-
-        $xlssheet->merge_cells($firstrow, $firstcol, $firstrow, $numcolsmerge);
-        $col = $firstcol + 1;
-        while ($col <= $numcolsmerge) {
-            $xlssheet->write_blank($firstrow, $col++, $this->xlsworkbook->add_format($xlsconfig['formats']['border_2202']));
-        }
     }
 
     private function xls_write_result_column_titles() {
@@ -675,13 +700,13 @@ class report_coursecompetencies_report implements renderable, templatable {
         $workbook = $this->xlsworkbook;
 
         $xlsconfig = $this::XLS_CONFIG;
-        $firstrow = $xlsconfig['firstrow'];
+        $firstrow = $xlsconfig['firstrow'] - 2;
         $firstcol = $xlsconfig['firstcol'];
         $formats = $xlsconfig['formats'];
 
         $numcolsmerge = $firstcol + 1;
 
-        $this->xls_write_header($xlssheet, $numcolsmerge);
+        $this->xls_write_header($xlssheet, $numcolsmerge, -2);
 
         $xlssheet->merge_cells($firstrow, $firstcol, $firstrow, $numcolsmerge);
         $xlssheet->write_blank($firstrow, $numcolsmerge, $workbook->add_format($formats['border_2202']));
@@ -705,7 +730,7 @@ class report_coursecompetencies_report implements renderable, templatable {
         $workbook = $this->xlsworkbook;
 
         $xlsconfig = $this::XLS_CONFIG;
-        $firstrow = $xlsconfig['firstrow'];
+        $firstrow = $xlsconfig['firstrow'] - 2;
         $firstcol = $xlsconfig['firstcol'];
 
         foreach ($competencies as $index => $competency) {
