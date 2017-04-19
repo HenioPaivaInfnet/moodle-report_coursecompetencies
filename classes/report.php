@@ -154,6 +154,7 @@ class report_coursecompetencies_report implements renderable, templatable {
         $data->users = array();
         $currentgroup = groups_get_course_group($course, true);
         $this->users = get_enrolled_users($coursecontext, 'moodle/competency:coursecompetencygradable', $currentgroup);
+        $userspendinggrades = $this->get_users_pending_grades();
 
         foreach ($this->users as $key => $user) {
             $user->picture = $output->user_picture($user, array('visibletoscreenreaders' => false));
@@ -195,6 +196,10 @@ class report_coursecompetencies_report implements renderable, templatable {
             }
 
             $user->externalgrade = round($user->externalgrade);
+
+            if (in_array($user->id, $userspendinggrades)) {
+                $user->gradependingsymbol =  get_string('pending_grade_symbol', 'report_coursecompetencies');
+            }
 
             $data->users[] = $user;
         }
@@ -243,6 +248,43 @@ class report_coursecompetencies_report implements renderable, templatable {
         $this->xls_write_competencies_rows();
 
         $this->xlsworkbook->close();
+    }
+
+    private function get_users_pending_grades() {
+        global $DB;
+
+        return $DB->get_fieldset_sql("
+            select distinct sub.userid
+            from mdl_context cx_c
+                join mdl_course_modules cm on cm.course = cx_c.instanceid
+                    and cm.visible = 1
+                join mdl_modules md on md.id = cm.module
+                    and md.name = 'assign'
+                join mdl_assign asg on cm.instance = asg.id
+                join mdl_assign_submission sub on sub.assignment = asg.id
+                    and sub.status = 'submitted'
+                left join (
+                    select ag.userid,
+                        cx_cm.instanceid
+                    from mdl_assign_grades ag
+                        join mdl_grading_instances gin on gin.itemid = ag.id
+                        join mdl_grading_definitions gd on gd.id = gin.definitionid
+                        join mdl_grading_areas ga on ga.id = gd.areaid
+                        join mdl_context cx_cm on cx_cm.id = ga.contextid
+                    where gin.status = 1
+                ) ag on ag.userid = sub.userid
+                    and ag.instanceid = cm.id
+            where cx_c.contextlevel = '50'
+                and exists (
+                    select 1
+                    from mdl_competency_modulecomp cmc
+                    where cmc.cmid = cm.id
+                )
+                and cx_c.instanceid = ?
+            group by cm.id,
+                sub.userid
+            having COUNT(sub.id) - COUNT(ag.userid) > 0
+        ", array($this->course->id));
     }
 
     private function xls_create_workbook() {
@@ -299,7 +341,7 @@ class report_coursecompetencies_report implements renderable, templatable {
             $firstrow - 2,
             $firstcol,
             get_string('export_warning', 'report_coursecompetencies'),
-            $workbook->add_format(array_merge($formats['centre_bold'], array('border' => 2, 'color' => 'red')))
+            $workbook->add_format(array_merge($formats['centre_bold'], array('border' => 2, 'color' => 'red', 'size' => 12)))
         );
         $xlssheet->merge_cells($firstrow - 2, $firstcol, $firstrow - 2, $numcolsmerge);
 
@@ -752,20 +794,43 @@ class report_coursecompetencies_report implements renderable, templatable {
     private function set_header_text() {
         global $DB;
 
-        $headertext = array();
-
         $categories = explode('/', $this->exporteddata->categorypath);
-        $programa = $DB->get_field('course_categories', 'name', array('id' => $categories[2]));
-        $classe = $DB->get_field('course_categories', 'name', array('id' => $categories[3]));
-        $bloco = $DB->get_field('course_categories', 'name', array('id' => $categories[4]));
 
-        $headertext[0] = implode(' - ', array(
-            $programa,
-            $classe
-        ));
-        $headertext[1] = 'Disciplina: ' . $this->exporteddata->coursename . ' / Bloco: ' . $bloco;
+        $this->headertext = array(
+            implode(' - ', array(
+                $DB->get_field('course_categories', 'name', array('id' => $categories[2])), // Programa
+                $DB->get_field('course_categories', 'name', array('id' => $categories[3])) // Classe
+            )),
+            implode(' / ', array(
+                'Disciplina: ' . $this->exporteddata->coursename,
+                'Bloco: ' . $DB->get_field('course_categories', 'name', array('id' => $categories[4])),
+                'Trimestre: ' . $this->get_course_trimester()
+            ))
+        );
+    }
 
-        $this->headertext = $headertext;
+    private function get_course_trimester() {
+        global $DB;
+
+        return $DB->get_field_sql("
+            select case when cc.name like '%[%-%]%' then
+                SUBSTRING_INDEX(
+                    SUBSTRING_INDEX(
+                        SUBSTRING_INDEX(cc.name, '[', -1),
+                        '-', case when (
+                                select COUNT(1)
+                                from mdl_course c
+                                where c.category = c.category
+                                    and c.sortorder > c.sortorder
+                            ) > 2 then 1
+                            else -1 end
+                    ),
+                ']', 1)
+            end
+            from mdl_course c
+                join mdl_course_categories cc on cc.id = c.category
+            where c.id = ?
+        ", array($this->course->id));
     }
 
     private function get_attendance_record() {

@@ -36,3 +36,8 @@
 .path-report-coursecompetencies tbody th img {
 	margin-right: 4px;
 }
+
+.path-report-coursecompetencies .grade-pending {
+	color: red;
+	font-size: 13px;
+}
