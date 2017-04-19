@@ -7,8 +7,9 @@
 
 {{{img_toggledescription}}}
 
+<div>{{#str}}grade_pending_legend, report_coursecompetencies{{/str}}</div>
+
 <div class="reportparent" data-region="course-competencies-report">
-	<span class="grade-pending">{{#str}}grade_pending_legend, report_coursecompetencies{{/str}}</span>
 	<table class="table table-bordered">
 		<summary class="accesshide">
 			<p>{{#str}}tablesummary, report_coursecompetencies{{/str}}</p>
@@ -30,10 +31,10 @@
 			<tr>
 				<th scope="row">
 					{{{picture}}}
-					<a
-						href="{{{profileurl}}}"
-						{{#gradependingsymbol}}class="grade-pending"{{/gradependingsymbol}}
-					>{{{fullname}}}{{gradependingsymbol}}</a>
+					<a href="{{{profileurl}}}">{{{fullname}}}</a>
+					{{#gradependingsymbol}}
+					<span class="grade-pending">{{gradependingsymbol}}</span>
+					{{/gradependingsymbol}}
 				</th>
 				{{#competencies}}
 				<td class="alert {{#grade}}alert-{{#proficiency}}success{{/proficiency}}{{^proficiency}}error{{/proficiency}}{{/grade}}">

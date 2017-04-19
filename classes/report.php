@@ -159,7 +159,7 @@ class report_coursecompetencies_report implements renderable, templatable {
         foreach ($this->users as $key => $user) {
             $user->picture = $output->user_picture($user, array('visibletoscreenreaders' => false));
             $user->profileurl = (
-                new moodle_url('/user/profile.php', array('id' => $user->id, 'course' => $course->id))
+                new moodle_url('/user/view.php', array('id' => $user->id, 'course' => $course->id))
             )->out(false);
             $user->fullname = fullname($user);
 

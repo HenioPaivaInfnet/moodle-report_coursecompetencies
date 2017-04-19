@@ -37,7 +37,7 @@ $string['course_result_passed'] = 'Passed by performance';
 $string['export_warning'] = 'DON\'T CHANGE THE DATA IN THIS WORKSHEET. THIS IS JUST A REPORT FOR DELIVERY TO THE RESPONSIBLE SCHOOL SECTOR. TO CHANGE THE COMPETENCIES OR ATTENDANCE RESULTS, MAKE THE ADJUSTMENT IN MOODLE AND EXPORT AGAIN';
 $string['export_xls'] = 'Export to Excel';
 $string['external_grade'] = 'Grade for external purposes';
-$string['grade_pending_legend'] = 'Students with an asterisk (*) have assignments with pending grades';
+$string['grade_pending_legend'] = 'Students with an asterisk (<span class="grade-pending">*</span>) have assignments with pending grades';
 $string['pending_grade_symbol'] = '*';
 $string['pluginname'] = 'Course competencies per student';
 $string['student'] = 'Student';

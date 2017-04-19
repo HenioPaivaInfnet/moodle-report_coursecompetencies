@@ -37,7 +37,7 @@ $string['course_result_passed'] = 'Aprovação por aproveitamento';
 $string['export_warning'] = 'NÃO ALTERE DADOS NESTA PLANILHA. ELA É APENAS UM RELATÓRIO PARA ENTREGA AO RCA. PARA ALTERAR O APROVEITAMENTO OU A FREQUÊNCIA DE UM ESTUDANTE, FAÇA O AJUSTE NO MOODLE E EXPORTE NOVAMENTE';
 $string['export_xls'] = 'Exportar para Excel';
 $string['external_grade'] = 'Grau para fins externos';
-$string['grade_pending_legend'] = 'Estudantes com asterisco (*) possuem entrega com correção pendente';
+$string['grade_pending_legend'] = 'Estudantes com asterisco (<span class="grade-pending">*</span>) possuem entrega com correção pendente';
 $string['pending_grade_symbol'] = '*';
 $string['pluginname'] = 'Competências da disciplina por estudante';
 $string['student'] = 'Estudante';
