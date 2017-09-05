@@ -255,29 +255,29 @@ class report_coursecompetencies_report implements renderable, templatable {
 
         return $DB->get_fieldset_sql("
             select distinct sub.userid
-            from mdl_context cx_c
-                join mdl_course_modules cm on cm.course = cx_c.instanceid
+            from {context} cx_c
+                join {course_modules} cm on cm.course = cx_c.instanceid
                     and cm.visible = 1
-                join mdl_modules md on md.id = cm.module
+                join {modules} md on md.id = cm.module
                     and md.name = 'assign'
-                join mdl_assign asg on cm.instance = asg.id
-                join mdl_assign_submission sub on sub.assignment = asg.id
+                join {assign} asg on cm.instance = asg.id
+                join {assign_submission} sub on sub.assignment = asg.id
                     and sub.status = 'submitted'
                 left join (
                     select ag.userid,
                         cx_cm.instanceid
-                    from mdl_assign_grades ag
-                        join mdl_grading_instances gin on gin.itemid = ag.id
-                        join mdl_grading_definitions gd on gd.id = gin.definitionid
-                        join mdl_grading_areas ga on ga.id = gd.areaid
-                        join mdl_context cx_cm on cx_cm.id = ga.contextid
+                    from {assign_grades} ag
+                        join {grading_instances} gin on gin.itemid = ag.id
+                        join {grading_definitions} gd on gd.id = gin.definitionid
+                        join {grading_areas} ga on ga.id = gd.areaid
+                        join {context} cx_cm on cx_cm.id = ga.contextid
                     where gin.status = 1
                 ) ag on ag.userid = sub.userid
                     and ag.instanceid = cm.id
             where cx_c.contextlevel = '50'
                 and exists (
                     select 1
-                    from mdl_competency_modulecomp cmc
+                    from {competency_modulecomp} cmc
                     where cmc.cmid = cm.id
                 )
                 and cx_c.instanceid = ?
@@ -819,16 +819,16 @@ class report_coursecompetencies_report implements renderable, templatable {
                         SUBSTRING_INDEX(cc.name, '[', -1),
                         '-', case when (
                                 select COUNT(1)
-                                from mdl_course c
-                                where c.category = c.category
-                                    and c.sortorder > c.sortorder
+                                from {course} c2
+                                where c2.category = c.category
+                                    and c2.sortorder > c.sortorder
                             ) > 2 then 1
                             else -1 end
                     ),
                 ']', 1)
             end
-            from mdl_course c
-                join mdl_course_categories cc on cc.id = c.category
+            from {course} c
+                join {course_categories} cc on cc.id = c.category
             where c.id = ?
         ", array($this->course->id));
     }
