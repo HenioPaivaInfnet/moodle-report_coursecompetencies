@@ -205,7 +205,7 @@ class report_coursecompetencies_report implements renderable, templatable {
         }
 
         usort($data->users, function($user1, $user2) {
-            return strcmp($user1->fullname, $user2->fullname);
+            return strcoll($user1->fullname, $user2->fullname);
         });
 
         $data->imgtoggledescription = $output->pix_icon(
