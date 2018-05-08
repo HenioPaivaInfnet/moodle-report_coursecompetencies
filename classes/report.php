@@ -172,7 +172,7 @@ class report_coursecompetencies_report implements renderable, templatable {
                 $competency = null;
 
                 foreach ($data->competencies as $coursecompetency) {
-                    if ($coursecompetency->id == $usercompetencycourse->get_competencyid()) {
+                    if ($coursecompetency->id == $usercompetencycourse->get('competencyid')) {
                         $exporter = new core_competency\external\user_competency_course_exporter(
                             $usercompetencycourse, array('scale' => $scale)
                         );
@@ -207,11 +207,6 @@ class report_coursecompetencies_report implements renderable, templatable {
         usort($data->users, function($user1, $user2) {
             return strcoll($user1->fullname, $user2->fullname);
         });
-
-        $data->imgtoggledescription = $output->pix_icon(
-            't/collapsed',
-            get_string('competency_showdescription', 'report_coursecompetencies')
-        );
 
         $this->exporteddata = $data;
 

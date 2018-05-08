@@ -1,13 +1,11 @@
 <div class="well">
-	<h4>{{#str}}competencies_title, report_coursecompetencies{{/str}}</h4>
+	<h4>Competências avaliadas nesta disicplina:</h4>
 	{{#competencies}}
 		<p>{{idnumber}}. {{{description}}}</p>
 	{{/competencies}}
 </div>
 
 {{{img_toggledescription}}}
-
-<div>{{#str}}grade_pending_legend, report_coursecompetencies{{/str}}</div>
 
 <div class="reportparent" data-region="course-competencies-report">
 	<table class="table table-bordered">
@@ -30,11 +28,7 @@
 		{{#users}}
 			<tr>
 				<th scope="row">
-					{{{picture}}}
-					<a href="{{{profileurl}}}">{{{fullname}}}</a>
-					{{#gradependingsymbol}}
-					<span class="grade-pending">{{gradependingsymbol}}</span>
-					{{/gradependingsymbol}}
+					{{{picture}}}<a href="{{{profileurl}}}">{{{fullname}}}</a>
 				</th>
 				{{#competencies}}
 				<td class="alert {{#grade}}alert-{{#proficiency}}success{{/proficiency}}{{^proficiency}}error{{/proficiency}}{{/grade}}">
@@ -62,7 +56,7 @@
 		{{#competencies}}
 	<li class="footnote" id="fn:{{idnumber}}">
 		<p data-id="{{id}}">
-			<b>{{#str}}competency, report_competency{{/str}}:</b><br>
+			<b>Competência:</b><br>
 		{{idnumber}}. {{description}}
 	  <p>
 	</li>
@@ -71,6 +65,30 @@
 </div>
 
 {{#js}}
+toggleDescription = function() {
+	var dataId = this.getAttribute('data-id');
+	var description = document.querySelector('.competency-description[data-id="' + this.getAttribute('data-id') + '"]');
+	var togglerImg = this.children[0];
+	var oldImg;
+	var newImg;
+
+	if (description.classList.contains('accesshide')) {
+		description.classList.remove('accesshide');
+		oldImg = 'collapsed';
+		newImg = 'expanded';
+	} else {
+		description.classList.add('accesshide');
+		oldImg = 'expanded';
+		newImg = 'collapsed';
+	}
+
+	togglerImg.setAttribute('src', togglerImg.getAttribute('src').replace(oldImg, newImg));
+};
+
+document.querySelectorAll('[data-action=competency-toggledescription]').forEach(function(toggler) {
+	toggler.onclick = toggleDescription;
+});
+
 require(['tool_lp/competencydialogue'], function(Compdialogue) {
 	Compdialogue.init();
 });
