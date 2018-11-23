@@ -108,7 +108,8 @@ class report_coursecompetencies_report implements renderable, templatable {
      */
     public function __construct($course) {
         $this->course = $course;
-        $this->context = context_course::instance($course->id);    }
+        $this->context = context_course::instance($course->id);
+    }
 
     /**
      * Carrega estudantes matriculados e conceitos de competências e exporta
@@ -835,19 +836,28 @@ class report_coursecompetencies_report implements renderable, templatable {
         global $DB;
 
         $this->course->trimester = $DB->get_field_sql("
-            select case when cc.name like '%[%-%]%' then
-                SUBSTRING_INDEX(
+            select case
+                when cc.name like '%[%-%]%' then
+                    SUBSTRING_INDEX(
+                        SUBSTRING_INDEX(
+                            SUBSTRING_INDEX(cc.name, '[', -1),
+                            '-', case when (
+                                    select COUNT(1)
+                                    from {course} c2
+                                    where c2.category = c.category
+                                        and c2.sortorder > c.sortorder
+                                ) > 2 then 1
+                                else -1 end
+                        ),
+                    ']', 1)
+                when cc.name like '%[____]%' then
                     SUBSTRING_INDEX(
                         SUBSTRING_INDEX(cc.name, '[', -1),
-                        '-', case when (
-                                select COUNT(1)
-                                from {course} c2
-                                where c2.category = c.category
-                                    and c2.sortorder > c.sortorder
-                            ) > 2 then 1
-                            else -1 end
-                    ),
-                ']', 1)
+                    ']', 1)
+                when cc.name like '[____.__]' then
+                    SUBSTRING_INDEX(
+                        SUBSTRING_INDEX(cc.name, '0', -1),
+                    '.', 1)
             end
             from {course} c
                 join {course_categories} cc on cc.id = c.category
