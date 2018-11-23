@@ -108,8 +108,7 @@ class report_coursecompetencies_report implements renderable, templatable {
      */
     public function __construct($course) {
         $this->course = $course;
-        $this->context = context_course::instance($course->id);
-    }
+        $this->context = context_course::instance($course->id);    }
 
     /**
      * Carrega estudantes matriculados e conceitos de competências e exporta
@@ -224,6 +223,8 @@ class report_coursecompetencies_report implements renderable, templatable {
 
         $this->set_attendance_properties();
         $this->set_attendance_status_index();
+        $this->set_course_categories();
+        $this->set_course_trimester();
 
         $this->xls_create_workbook();
         $this->xls_create_result_worksheet();
@@ -282,14 +283,44 @@ class report_coursecompetencies_report implements renderable, templatable {
         ", array($this->course->id));
     }
 
+    private function set_course_categories() {
+        global $DB;
+
+        $categories = explode('/', $this->exporteddata->categorypath);
+
+        // Programa
+        $this->course->category2name = $DB->get_field('course_categories', 'name', array('id' => $categories[2]));
+        // Classe
+        $this->course->category3name = $DB->get_field('course_categories', 'name', array('id' => $categories[3]));
+        // Bloco
+        $this->course->category4name = $DB->get_field('course_categories', 'name', array('id' => $categories[4]));
+    }
+
     private function xls_create_workbook() {
         $coursename = $this->exporteddata->coursename;
-        $filename = clean_filename("$coursename.xls");
+        $filename = $this->get_file_name();
 
         $workbook = new MoodleExcelWorkbook($filename);
         $workbook->send($filename);
 
         $this->xlsworkbook = $workbook;
+    }
+
+    private function get_file_name() {
+        $regexresult = array();
+
+        preg_match('/\[(.*)\]/', $this->course->category3name, $regexresult);
+        $category3code = $regexresult[1];
+
+        $coursenameclean = preg_replace('/\[.*?\]/', '', $this->exporteddata->coursename);
+
+        $filename = implode(' - ', array(
+            $category3code,
+            $this->course->trimester,
+            $coursenameclean
+        ));
+
+        return clean_filename("$filename.xls");
     }
 
     private function xls_create_result_worksheet() {
@@ -787,27 +818,23 @@ class report_coursecompetencies_report implements renderable, templatable {
     }
 
     private function set_header_text() {
-        global $DB;
-
-        $categories = explode('/', $this->exporteddata->categorypath);
-
         $this->headertext = array(
             implode(' - ', array(
-                $DB->get_field('course_categories', 'name', array('id' => $categories[2])), // Programa
-                $DB->get_field('course_categories', 'name', array('id' => $categories[3])) // Classe
+                $this->course->category2name,
+                $this->course->category3name
             )),
             implode(' / ', array(
                 'Disciplina: ' . $this->exporteddata->coursename,
-                'Bloco: ' . $DB->get_field('course_categories', 'name', array('id' => $categories[4])),
-                'Trimestre: ' . $this->get_course_trimester()
+                'Bloco: ' . $this->course->category4name,
+                'Trimestre: ' . $this->course->trimester
             ))
         );
     }
 
-    private function get_course_trimester() {
+    private function set_course_trimester() {
         global $DB;
 
-        return $DB->get_field_sql("
+        $this->course->trimester = $DB->get_field_sql("
             select case when cc.name like '%[%-%]%' then
                 SUBSTRING_INDEX(
                     SUBSTRING_INDEX(
